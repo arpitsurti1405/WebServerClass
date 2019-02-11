@@ -29,6 +29,7 @@
     <link href="https://getbootstrap.com/docs/4.2/examples/navbar-fixed/navbar-top-fixed.css" rel="stylesheet">
   </head>
   <body>
+      <div id='app'>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <a class="navbar-brand" href="#">Fixed navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,17 +53,24 @@
     </form>
   </div>
 </nav>
-<div id='app'>
+<br /><br /><br /><br />
 <main role="main" class="container">
   <div class="jumbotron">
-    <h1 @click="textClick">{{message}}</h1>
+    <h1 @click="textClick">{{which_class}} is the best</h1>
     <ul class="list-group list-group-flush">
             <li class="list-group-item" v-for="img in imgs" @click="choosePicture(img)">
-<img width="100%" :src="img"/>
+<img width="50" :src="img"/>
             </li>
             
     </ul>
- 
+    <div class="form-group">
+        <label for="exampleInputEmail1">Which class is the best?</label>
+        <input v-model="which_class" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter best class">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+<div class="alert alert-success" v-if="which_class == 'This' || which_class == 'Web Programming'">
+    Correct
+</div>
     <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser’s viewport.</p>
     <a class="btn btn-lg btn-primary"  @click="flipPicture" role="button">View navbar docs &raquo;</a>
     <img :src="cur_img" width="100%">
@@ -75,6 +83,7 @@
         el:'#app',
         data:{
             message:'Hello',
+            which_class: "",
             imgs:[
             "https://images.sftcdn.net/images/t_app-cover-l,f_auto/p/ce2ece60-9b32-11e6-95ab-00163ed833e7/260663710/the-test-fun-for-friends-screenshot.jpg",
             "https://wow.olympus.eu/webfile/img/1632/x=1024/oly_testwow_stage.jpg",
