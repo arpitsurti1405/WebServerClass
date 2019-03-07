@@ -1,6 +1,6 @@
 const express = require('express');
 //const conn = require('../models/mysql_connection');
-const user = require('../models/user')
+const user = require('../models/users')
 const app = express.Router();
 
 
