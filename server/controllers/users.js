@@ -1,26 +1,39 @@
 const express = require('express');
-//const conn = require('../models/mysql_connection');
-const user = require('../models/users')
+const user = require('../models/user');
+
 const app = express.Router();
 
-
-app.get("/",(req,res) =>{
-    console.log('Test the console.')
-    user.getAll((err,data) => {
-        console.log('Test getall Method')
-        res.send(data);
-    });
-    console.log('Test after getAll method')
+app.get("/", async (req, res, next) => {
+    user.getAll()
+    .then(x=>  res.send(x) )
+    .catch(next)
 });
-
-
-app.post("/",(req,res) =>{
-    console.log('Test the console.')
-    user.add({FirstName: "Steve", LastName: "Smith",Password: "test"},(err,data) => {
-        console.log('Test getall Method')
-        res.send(data);
-    });
-    console.log('Test after getAll method')
+app.get("/:id", (req, res, next) => {
+    user.get(req.params.id)
+    .then(x=>  res.send(x) )
+    .catch(next)
+});
+app.post("/", (req, res, next) => {
+    user.add(req.body)
+    .then(x=>  res.send(x) )
+    .catch(next)
+});
+app.post("/login", (req, res, next) => {
+    //console.log({body: req.body})
+    user.login(req.body.email, req.body.password)
+    .then(x=>  res.send(x) )
+    .catch(next)
+});
+app.post("/facebookLogin", (req, res, next) => {
+    //console.log({body: req.body})
+    user.facebookLogin(req.body.token)
+    .then(x=>  res.send(x) )
+    .catch(next)
+});
+app.post("/changePassword", (req, res, next) => {
+    user.changePassword(req.body.email, req.body.oldPassword, req.body.newPassword)
+    .then(x=>  res.send(x) )
+    .catch(next)
 });
 
 module.exports = app;
